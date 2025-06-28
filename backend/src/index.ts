@@ -1,9 +1,18 @@
 import 'dotenv/config';
 import express, { Express, Request, Response } from 'express';
 import { GoogleGenerativeAI } from '@google/generative-ai';
+import cors from 'cors';
 
 const app: Express = express();
 const port = process.env.PORT || 3000;
+
+app.use(cors()); // ✅ Allow all origins
+app.options('*', cors()); // Optional: Handle preflight for all
+
+app.get('/', (req: Request, res: Response) => {
+  res.send('✅ Server is up and running!');
+});
+
 app.use(express.json());
 
 function cleanJsonString(str: string): string {
